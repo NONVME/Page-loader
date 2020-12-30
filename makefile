@@ -5,9 +5,9 @@ selfcheck: ## Checks the validity of the pyproject.toml file
 	@poetry check
 
 lint: selfcheck ## Run linter
-	@poetry run flake8 page_loader
+	@poetry run flake8 page_loader tests
 
-test: ## Run tests
+test: lint ## Run tests
 	@poetry run pytest --cov .
 
 test-cov: ## Prepare coverage report for Codeclimate and tests

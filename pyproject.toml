@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "hexlet_code"
+name = "page-loader"
 version = "0.1.0"
 description = "Web scraper"
 authors = ["Chashin Efim <69835249+NONVME@users.noreply.github.com>"]
