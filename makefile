@@ -11,7 +11,7 @@ test: lint ## Run tests
 	@poetry run pytest --cov .
 
 test-cov: ## Prepare coverage report for Codeclimate and tests
-	@poetry run coverage run --source=page-loader -m pytest
+	@poetry run coverage run --source=page_loader -m pytest
 	@poetry run coverage xml
 
 build: lint ## Check, lint and build package
