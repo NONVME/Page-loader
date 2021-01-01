@@ -1,14 +1,9 @@
 import tempfile
 
-import requests
-import requests_mock
-
 from page_loader import engine
+from page_loader import constants
 
-HEXLET_MOCK = 'tests/fixtures/ru-hexlet-io-courses.html'
-HEXLET_URL = 'https://ru.hexlet.io/courses'
-HEXLET_TEMP_PATH = tempfile.TemporaryDirectory('HEXLET')
-HEXLET_TEMP_FILE = engine.download(HEXLET_URL, HEXLET_TEMP_PATH.name)
+BASE_TEMP_PATH = tempfile.TemporaryDirectory('test_requests')
 
 
 def read_file(file_path):
@@ -16,10 +11,23 @@ def read_file(file_path):
         return file.read()
 
 
-with open(HEXLET_MOCK) as hexlet_mock_data:
-    with requests_mock.Mocker() as mock_request:
-        mock_request.get(HEXLET_URL, text=hexlet_mock_data.read())
-        response = requests.get(HEXLET_URL).text
+def test_request_response():
+    response = engine.get_page(constants.BASE_URL)
+    assert response is not None
 
-    print(read_file(HEXLET_TEMP_FILE))
-    assert response == read_file(HEXLET_TEMP_FILE)
+
+def test_mock_response(requests_mock):
+    with open(constants.BASE_FIXTURE) as fixture:
+        requests_mock.get(constants.BASE_URL, text=fixture.read())
+        response = engine.get_page(constants.BASE_URL).text
+
+    assert response == read_file(constants.BASE_FIXTURE)
+
+
+def test_mock_download(requests_mock):
+    with open(constants.BASE_FIXTURE) as fixture:
+        requests_mock.get(constants.BASE_URL, text=fixture.read())
+        temp_file = engine.download(constants.BASE_URL, BASE_TEMP_PATH.name)
+        data = read_file(temp_file)
+
+    assert data == read_file(constants.BASE_FIXTURE)

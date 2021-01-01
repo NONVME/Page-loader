@@ -3,6 +3,8 @@ import os
 
 import requests
 
+from page_loader.constants import CHROME_DESKTOP
+
 
 def download(url, output):
     file_name = generate_name(url, output)
@@ -16,9 +18,12 @@ def generate_name(url, output):
 
 
 def get_page(url):
-    headers = {'user-agent': 'my-app/0.0.1'}
-    r = requests.get(url, headers=headers, timeout=1)
-    return r
+    headers = {'user-agent': CHROME_DESKTOP}
+    response = requests.get(url, headers=headers, timeout=1)
+    if response.ok:
+        return response
+    else:
+        return None
 
 
 def save_page(page, path):
