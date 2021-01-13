@@ -14,11 +14,12 @@ test-cov: ## Prepare coverage report for Codeclimate and tests
 	@poetry run coverage run --source=page_loader -m pytest
 	@poetry run coverage xml
 
-build: lint ## Check, lint and build package
+build: test ## Check, lint and build package
+	rm -rf ./dist/*
 	@poetry build
 
 package-install: ## Install package localy
-	@pip install --user dist/*.whl
+	@pip install --user --upgrade dist/*.whl
 
 help: ## This help message
 	@echo "Available commands:"
