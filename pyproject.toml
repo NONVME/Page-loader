@@ -3,6 +3,9 @@ name = "hexlet-code"
 version = "0.1.1"
 description = "Web scraper"
 authors = ["Chashin Efim <69835249+NONVME@users.noreply.github.com>"]
+packages = [
+  { include = "page_loader" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
