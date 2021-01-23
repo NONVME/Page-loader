@@ -1,20 +1,32 @@
-"""Testing text output modформатирование."""
-import page_loader.constants as ct
-from page_loader.formaters import generate_name_page
-from page_loader.formaters import url_formatting
-from page_loader.formaters import link_formatting
+import os
+
+from page_loader.url_formatter import to_dirname, truncate_name
+from page_loader.url_formatter import to_filename
+
+URL = 'https://ru.hexlet.io/courses'
+DIR_PATH = '/var/tmp'
+CONVERTED_DIRNAME = '/var/tmp/ru-hexlet-io-courses.html'
+CONVERTED_ASSETS_DIRNAME = """/var/tmp/ru-hexlet-io-courses_file/\
+ru-hexlet-io-courses-assets-professions-nodejs.png"""
+CONVERTED_URL = 'ru-hexlet-io-courses'
+LINK = '/assets/professions/nodejs.png'
+CONVERTED_LINK = '-assets-professions-nodejs.png'
 
 
-def test_generate_name_page():
-    assert generate_name_page(tail_path=ct.URL,
-                              forepart_path=ct.DIR_PATH,
-                              end_of_path='.html') == ct.CONVERTED_FILE_NAME
+def test_generate_dirname():
+    assert to_dirname(DIR_PATH, URL, '.html') == CONVERTED_DIRNAME
+    assets_dirname = to_dirname(DIR_PATH, URL, '_file')
+    assert to_dirname(assets_dirname, URL, LINK,
+                      is_link=True) == CONVERTED_ASSETS_DIRNAME
 
 
-def test_url_formatting():
-    assert url_formatting(ct.URL) == ct.CONVERTED_URL
+def test_to_filename():
+    assert to_filename(URL) == CONVERTED_URL
+    assert to_filename(LINK) == CONVERTED_LINK
 
 
-def test_link_formatting():
-    assert link_formatting(ct.LINK) == (ct.CONVERTED_LINK_PATH,
-                                        ct.CONVERTED_LINK_EXT)
+def test_truncate_name():
+    long_filename = os.path.join(DIR_PATH, 'a'*256 + '.jpg')
+    name_max = os.pathconf('/', 'PC_NAME_MAX')
+    test_filename = truncate_name(long_filename)
+    assert len(test_filename) == name_max + len(DIR_PATH)

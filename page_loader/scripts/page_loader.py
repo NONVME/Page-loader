@@ -1,28 +1,21 @@
-import argparse
-import os
+import logging
+import sys
 
+from page_loader.args import get_args_parser
 from page_loader.engine import download
 
 
-def get_args_parser():
-    parser = argparse.ArgumentParser(
-        description='Web scrapper',
-        prog='page-loader',
-    )
-    parser.add_argument('url', type=str)
-    parser.add_argument('-o',
-                        '--output',
-                        help='\n set output full-path',
-                        default=os.getcwd(),
-                        type=str,
-                        )
-    return parser
+logger = logging.getLogger('base')
 
 
 def main():
     """Select format selection."""
     args = get_args_parser().parse_args()
-    print(download(args.url, args.output))
+    try:
+        print(download(args.url, args.output))
+    except Exception:
+        logger.exception("Exception occurred")
+        sys.exit(1)
 
 
 if __name__ == '__main__':
