@@ -5,6 +5,7 @@ BASE_LOG_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.logs')
 FILE_NAME = os.path.join(BASE_LOG_DIR, f'{__name__}.log')
 FORMAT = '%(asctime)s:[%(module)s:%(lineno)s] %(levelname)s %(message)s'
+LOG_LEVEL = 'INFO'
 
 LOGGING_CONFIG = {
     'version': 1,
@@ -32,12 +33,12 @@ LOGGING_CONFIG = {
     'loggers': {
         'base': {
             'handlers': ['file'],
-            'level': 'DEBUG',
+            'level': LOG_LEVEL,
             'propagate': False
         },
         'page_loader.engine': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
+            'handlers': ['file', 'console'],
+            'level': LOG_LEVEL,
             'propagate': False
         }
     }

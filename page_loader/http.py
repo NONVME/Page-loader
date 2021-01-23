@@ -15,6 +15,7 @@ logger = logging.getLogger('base')
 def get_data(url: str) -> Optional[Response]:
     headers = {'user-agent': CHROME_DESKTOP}
     try:
+        logger.debug(f'get {url}')
         response = requests.get(url, headers=headers, timeout=TIMEOUT)
     except requests.exceptions.ReadTimeout:
         logger.error(f'ReadTimeout, timeout = {TIMEOUT}')
