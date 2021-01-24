@@ -28,9 +28,9 @@ def download(url: str, dir_path: str) -> str:
         assets_full_dirname = to_dirname(assets_dirname, url, link,
                                          is_link=True)
         assets = get_data(domain_link).content
-        write(assets, assets_full_dirname)
+        write(assets, assets_full_dirname, is_assets=True)
         logger.debug(f'content by {link} was written')
         bar.next()
 
     bar.finish()
-    return f'Page saved in {full_dirname}'
+    return full_dirname

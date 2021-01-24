@@ -6,10 +6,11 @@ from typing import Union
 logger = logging.getLogger('base')
 
 
-def write(data: Union[str, bytes], file_path: str) -> None:
+def write(data: Union[str, bytes],
+          file_path: str, *, is_assets: bool = False) -> None:
     dir_path = os.path.dirname(file_path)
 
-    if not os.path.exists(dir_path):
+    if not os.path.exists(dir_path) and is_assets:
         try:
             os.makedirs(dir_path)
             logger.debug(f'directory {dir_path} was created')
