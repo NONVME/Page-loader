@@ -19,7 +19,8 @@ LOGGING_CONFIG = {
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
-            'formatter': 'default'
+            'formatter': 'default',
+            'stream': 'ext://sys.stderr'
         },
         'file': {
             'class': 'logging.handlers.RotatingFileHandler',
@@ -34,6 +35,11 @@ LOGGING_CONFIG = {
         'base': {
             'handlers': ['file'],
             'level': LOG_LEVEL,
+            'propagate': False
+        },
+        'base_error': {
+            'handlers': ['console'],
+            'level': 'ERROR',
             'propagate': False
         },
         'page_loader.engine': {

@@ -2,7 +2,7 @@ import os
 import re
 import tempfile
 from typing import Union
-from urllib.parse import urljoin
+from urllib.parse import urlparse
 
 
 def to_dirname(dirname: str, url: str,
@@ -17,11 +17,10 @@ def to_dirname(dirname: str, url: str,
 
 
 def to_filename(url: str) -> str:
-    valid_url = url_normalize(url)
     re_path = re.compile(r'[^a-zA-Z0-9]')
     re_scheme = re.compile(r'^https?://')
     if re_scheme.match(url):
-        filename = re_path.sub('-', re_scheme.sub('', valid_url))
+        filename = re_path.sub('-', re_scheme.sub('', url))
     else:
         url, ext = os.path.splitext(url)
         filename = re_path.sub('-',  url) + ext
@@ -30,20 +29,6 @@ def to_filename(url: str) -> str:
 
 def has_ext(url: str) -> bool:
     return bool(os.path.splitext(url)[1])
-
-
-def url_normalize(url: str) -> str:
-    segments = url.split('/')
-    correct_segments = []
-    for segment in segments:
-        if segment != '':
-            correct_segments.append(segment)
-    first_segment = str(correct_segments[0])
-    if first_segment.find('http') == -1:
-        correct_segments = ['http:'] + correct_segments
-    correct_segments[0] = correct_segments[0] + '/'
-    url = '/'.join(correct_segments)
-    return url
 
 
 def truncate_name(path_file: Union[str, bytes]) -> str:
@@ -62,4 +47,5 @@ def truncate_name(path_file: Union[str, bytes]) -> str:
 
 
 def get_domain(url: str) -> str:
-    return urljoin(url, '/')
+    domain = urlparse(url).netloc
+    return domain

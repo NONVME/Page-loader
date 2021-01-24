@@ -1,7 +1,8 @@
+import tempfile
+
+from page_loader.engine import download
 from page_loader.file import read
 from page_loader.html_builder import get_modified_page
-from page_loader.engine import download
-import tempfile
 
 URL = 'https://ru.hexlet.io/courses'
 DIR_PATH = '/var/tmp'

@@ -5,7 +5,7 @@ from page_loader.args import get_args_parser
 from page_loader.engine import download
 
 
-logger = logging.getLogger('base')
+logger = logging.getLogger('base_error')
 
 
 def main():

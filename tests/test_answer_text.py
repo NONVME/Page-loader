@@ -1,7 +1,6 @@
 import os
 
-from page_loader.url_formatter import to_dirname, truncate_name
-from page_loader.url_formatter import to_filename
+from page_loader.url_formatter import to_dirname, to_filename, truncate_name
 
 URL = 'https://ru.hexlet.io/courses'
 DIR_PATH = '/var/tmp'
