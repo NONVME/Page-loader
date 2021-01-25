@@ -3,16 +3,14 @@ import os
 from page_loader.url_formatter import to_dirname, to_filename, truncate_name
 
 URL = 'https://ru.hexlet.io/courses'
-DIR_PATH = '/var/tmp'
-CONVERTED_DIRNAME = '/var/tmp/ru-hexlet-io-courses.html'
-CONVERTED_ASSETS_DIRNAME = """/var/tmp/ru-hexlet-io-courses_file/\
-ru-hexlet-io-courses-assets-professions-nodejs.png"""
-CONVERTED_URL = 'ru-hexlet-io-courses'
 LINK = '/assets/professions/nodejs.png'
-CONVERTED_LINK = '-assets-professions-nodejs.png'
+DIR_PATH = '/var/tmp'
 
 
 def test_generate_dirname():
+    CONVERTED_ASSETS_DIRNAME = """/var/tmp/ru-hexlet-io-courses_file/\
+ru-hexlet-io-courses-assets-professions-nodejs.png"""
+    CONVERTED_DIRNAME = '/var/tmp/ru-hexlet-io-courses.html'
     assert to_dirname(DIR_PATH, URL, '.html') == CONVERTED_DIRNAME
     assets_dirname = to_dirname(DIR_PATH, URL, '_file')
     assert to_dirname(assets_dirname, URL, LINK,
@@ -20,6 +18,8 @@ def test_generate_dirname():
 
 
 def test_to_filename():
+    CONVERTED_URL = 'ru-hexlet-io-courses'
+    CONVERTED_LINK = '-assets-professions-nodejs.png'
     assert to_filename(URL) == CONVERTED_URL
     assert to_filename(LINK) == CONVERTED_LINK
 
