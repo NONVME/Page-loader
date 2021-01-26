@@ -18,10 +18,10 @@ def to_dirname(dirname: str, url: str,
 def to_filename(url: str, domain: str) -> str:
     re_path = re.compile(r'[^a-zA-Z0-9]')
     re_scheme = re.compile(r'^https?:\/\/')
+    url, ext = os.path.splitext(url)
     if re_scheme.match(url):
-        filename = re_path.sub('-', re_scheme.sub('', url))
+        filename = re_path.sub('-', re_scheme.sub('', url)) + ext
     else:
-        url, ext = os.path.splitext(url)
         filename = (re_path.sub('-', urlparse(domain).netloc)
                     + re_path.sub('-', url) + ext)
     return filename
