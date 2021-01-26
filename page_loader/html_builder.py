@@ -18,18 +18,18 @@ def get_modified_page(url: str, page: str) -> tuple[str, list[str]]:
     original_links = []
     soup = BeautifulSoup(page, 'html5lib')
 
-    assets_dir_path = to_dirname('', url, '_file/')
+    assets_dir_path = to_dirname('', url, '_files/')
 
     for tag in soup.find_all(name='link', href=is_local_resource):
         original_links.append(tag['href'])
         path = os.path.join(assets_dir_path,
-                            to_filename(url) + to_filename(tag['href']))
+                            to_filename(tag['href'], url))
         tag['href'] = path
 
     for tag in soup.find_all(name=['img', 'script'], src=is_local_resource):
         original_links.append(tag['src'])
         path = os.path.join(assets_dir_path,
-                            to_filename(url) + to_filename(tag['src']))
+                            to_filename(tag['src'], url))
         tag['src'] = path
 
     return soup.prettify(formatter="html5"), original_links

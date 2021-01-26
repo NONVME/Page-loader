@@ -13,13 +13,13 @@ logger = logging.getLogger(__name__)
 
 
 def download(url: str, dir_path: str) -> str:
-    full_dirname = to_dirname(dir_path, url, '.html')
+    abs_path = to_dirname(dir_path, url, '.html')
     assets_dirname = to_dirname(dir_path, url, '_files')
 
     page = get_data(url).text
     modified_page, original_links = get_modified_page(url, page)
-    write(modified_page, full_dirname)
-    logger.debug(f'page {url} was written in {full_dirname}')
+    write(modified_page, abs_path)
+    logger.debug(f'page {url} was written in {abs_path}')
 
     bar = Bar(f'Loading: {url}', max=len(original_links))
 
@@ -33,4 +33,4 @@ def download(url: str, dir_path: str) -> str:
         bar.next()
 
     bar.finish()
-    return full_dirname
+    return abs_path

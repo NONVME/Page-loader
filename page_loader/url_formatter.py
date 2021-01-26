@@ -7,23 +7,23 @@ from urllib.parse import urlparse
 
 def to_dirname(dirname: str, url: str,
                ext: str, *, is_link: bool = False) -> str:
-    filename = to_filename(url)
-    name = os.path.join(dirname, filename + ext)
-    if not is_link:
-        return truncate_name(name)
-    end_of_filename = to_filename(ext)
-    name = os.path.join(dirname, filename + end_of_filename)
+    if is_link:
+        name = os.path.join(dirname, to_filename(ext, url))
+    else:
+        filename = to_filename(url, urlparse(url).netloc)
+        name = os.path.join(dirname, filename + ext)
     return truncate_name(name)
 
 
-def to_filename(url: str) -> str:
+def to_filename(url: str, domain: str) -> str:
     re_path = re.compile(r'[^a-zA-Z0-9]')
-    re_scheme = re.compile(r'^https?://')
+    re_scheme = re.compile(r'^https?:\/\/')
     if re_scheme.match(url):
         filename = re_path.sub('-', re_scheme.sub('', url))
     else:
         url, ext = os.path.splitext(url)
-        filename = re_path.sub('-',  url) + ext
+        filename = (re_path.sub('-', urlparse(domain).netloc)
+                    + re_path.sub('-', url) + ext)
     return filename
 
 

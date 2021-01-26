@@ -8,20 +8,20 @@ DIR_PATH = '/var/tmp'
 
 
 def test_generate_dirname():
-    CONVERTED_ASSETS_DIRNAME = """/var/tmp/ru-hexlet-io-courses_file/\
-ru-hexlet-io-courses-assets-professions-nodejs.png"""
+    CONVERTED_ASSETS_DIRNAME = """/var/tmp/ru-hexlet-io-courses_files/\
+ru-hexlet-io-assets-professions-nodejs.png"""
     CONVERTED_DIRNAME = '/var/tmp/ru-hexlet-io-courses.html'
     assert to_dirname(DIR_PATH, URL, '.html') == CONVERTED_DIRNAME
-    assets_dirname = to_dirname(DIR_PATH, URL, '_file')
+    assets_dirname = to_dirname(DIR_PATH, URL, '_files')
     assert to_dirname(assets_dirname, URL, LINK,
                       is_link=True) == CONVERTED_ASSETS_DIRNAME
 
 
 def test_to_filename():
     CONVERTED_URL = 'ru-hexlet-io-courses'
-    CONVERTED_LINK = '-assets-professions-nodejs.png'
-    assert to_filename(URL) == CONVERTED_URL
-    assert to_filename(LINK) == CONVERTED_LINK
+    CONVERTED_LINK = 'ru-hexlet-io-assets-professions-nodejs.png'
+    assert to_filename(URL, URL) == CONVERTED_URL
+    assert to_filename(LINK, URL) == CONVERTED_LINK
 
 
 def test_truncate_name():
