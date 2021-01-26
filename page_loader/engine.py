@@ -17,7 +17,7 @@ def download(url: str, dir_path: str) -> str:
     assets_dirname = to_dirname(dir_path, url, '_file')
 
     page = get_data(url).text
-    modified_page, original_links = get_modified_page(url, page, dir_path)
+    modified_page, original_links = get_modified_page(url, page)
     write(modified_page, full_dirname)
     logger.debug(f'page {url} was written in {full_dirname}')
 

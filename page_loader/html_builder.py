@@ -7,8 +7,7 @@ from page_loader.url_formatter import to_filename
 from page_loader.url_formatter import to_dirname
 
 
-def get_modified_page(url: str, page: str,
-                      dir_path: str) -> tuple[str, list[str]]:
+def get_modified_page(url: str, page: str) -> tuple[str, list[str]]:
 
     def is_local_resource(link: str) -> bool:
 
@@ -19,7 +18,7 @@ def get_modified_page(url: str, page: str,
     original_links = []
     soup = BeautifulSoup(page, 'html5lib')
 
-    assets_dir_path = to_dirname(dir_path, url, '_file/')
+    assets_dir_path = to_dirname('', url, '_file/')
 
     for tag in soup.find_all(name='link', href=is_local_resource):
         original_links.append(tag['href'])
