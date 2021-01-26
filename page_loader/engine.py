@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 def download(url: str, dir_path: str) -> str:
     full_dirname = to_dirname(dir_path, url, '.html')
-    assets_dirname = to_dirname(dir_path, url, '_file')
+    assets_dirname = to_dirname(dir_path, url, '_files')
 
     page = get_data(url).text
     modified_page, original_links = get_modified_page(url, page)
