@@ -16,7 +16,7 @@ def get_modified_page(url: str, page: str) -> tuple[str, list[str]]:
         return status
 
     original_links = []
-    soup = BeautifulSoup(page, 'html5lib')
+    soup = BeautifulSoup(page, 'html.parser')
 
     assets_dir_path = to_dirname('', url, '_files/')
 
