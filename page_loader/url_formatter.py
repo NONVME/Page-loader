@@ -23,8 +23,8 @@ def to_filename(url: str, domain: str) -> str:
         filename = re_path.sub('-', re_scheme.sub('', url)) + ext
     else:
         ext = '.html' if ext == '' else ext
-        filename = (re_path.sub('-', urlparse(domain).netloc)
-                    + re_path.sub('-', url) + ext)
+        filename = (re_path.sub('-', urlparse(domain).netloc) +
+                    re_path.sub('-', url) + ext)
     return filename
 
 

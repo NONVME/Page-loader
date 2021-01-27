@@ -25,7 +25,7 @@ def test_to_filename():
 
 
 def test_truncate_name():
-    long_filename = os.path.join(DIR_PATH, 'a'*256 + '.jpg')
+    long_filename = os.path.join(DIR_PATH, 'a' * 256 + '.jpg')
     name_max = os.pathconf('/', 'PC_NAME_MAX')
     test_filename = truncate_name(long_filename)
     assert len(test_filename) == name_max + len(DIR_PATH)
