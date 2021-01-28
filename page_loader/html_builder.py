@@ -7,29 +7,26 @@ from page_loader.url_formatter import to_filename
 from page_loader.url_formatter import to_dirname
 
 
+TAG_ATTRS = {
+    'link': 'href',
+    'img': 'src',
+    'script': 'src',
+}
+
+
 def get_modified_page(url: str, page: str) -> tuple[str, list[str]]:
-
-    def is_local_resource(link: str) -> bool:
-
-        domains_are_eq = urlparse(link).netloc == urlparse(url).netloc
-        status = bool(link) and urlparse(link).netloc == '' or domains_are_eq
-        return status
-
     original_links = []
     soup = BeautifulSoup(page, 'html.parser')
-
     assets_dir_path = to_dirname('', url, '_files/')
 
-    for tag in soup.find_all(name='link', href=is_local_resource):
-        original_links.append(tag['href'])
-        path = os.path.join(assets_dir_path,
-                            to_filename(tag['href'], url))
-        tag['href'] = path
+    for tag, attribute in TAG_ATTRS.items():
+        for link in [node.get(attribute) for node in soup.find_all(name=tag)]:
+            if (urlparse(link).netloc == urlparse(url).netloc
+                    or urlparse(link).netloc == ''):
 
-    for tag in soup.find_all(name=['img', 'script'], src=is_local_resource):
-        original_links.append(tag['src'])
-        path = os.path.join(assets_dir_path,
-                            to_filename(tag['src'], url))
-        tag['src'] = path
+                original_links.append(link)
+                path = os.path.join(assets_dir_path, to_filename(link, url))
+                original_tag = soup.find(name=tag, **{attribute: link})
+                original_tag[attribute] = path
 
     return soup.prettify(formatter="html5"), original_links

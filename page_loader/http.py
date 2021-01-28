@@ -7,7 +7,7 @@ from requests import Response
 TIMEOUT = 1
 
 
-logger = logging.getLogger('base')
+logger = logging.getLogger('base_console')
 
 
 def get_data(url: str) -> Optional[Response]:

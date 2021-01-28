@@ -3,7 +3,8 @@ import os
 from typing import Union
 
 
-logger = logging.getLogger('base')
+logger_console = logging.getLogger('base_console')
+logger_file = logging.getLogger('base_file')
 
 
 def write(data: Union[str, bytes],
@@ -13,9 +14,9 @@ def write(data: Union[str, bytes],
     if not os.path.exists(dir_path) and is_assets:
         try:
             os.makedirs(dir_path)
-            logger.debug(f'directory {dir_path} was created')
+            logger_file.debug(f'directory {dir_path} was created')
         except PermissionError:
-            logger.exception(
+            logger_console.exception(
                 f'not enough rights to create the directory {dir_path}'
             )
 

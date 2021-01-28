@@ -32,12 +32,12 @@ LOGGING_CONFIG = {
     },
 
     'loggers': {
-        'base': {
+        'base_file': {
             'handlers': ['file'],
             'level': LOG_LEVEL,
             'propagate': False
         },
-        'base_error': {
+        'base_console': {
             'handlers': ['console'],
             'level': 'ERROR',
             'propagate': False
