@@ -21,8 +21,8 @@ def get_modified_page(url: str, page: str) -> tuple[str, list[str]]:
 
     for tag, attribute in TAG_ATTRS.items():
         for link in [node.get(attribute) for node in soup.find_all(name=tag)]:
-            if (urlparse(link).netloc == urlparse(url).netloc
-                    or urlparse(link).netloc == ''):
+            domains_are_eq = urlparse(link).netloc == urlparse(url).netloc
+            if domains_are_eq or urlparse(link).netloc == '':
 
                 original_links.append(link)
                 path = os.path.join(assets_dir_path, to_filename(link, url))
