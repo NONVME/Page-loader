@@ -31,7 +31,7 @@ make package-install
 ### As library function
 
 ```python
-from page-loader import download
+from page_loader import download
 
 download(url, path_to_save)
 ```
@@ -55,7 +55,13 @@ optional arguments:
 ### Usage examples
 
 #### Installation
+[![asciicast](https://asciinema.org/a/yKCsOwd8puvOJzd6VHGUCzyMo.svg)](https://asciinema.org/a/yKCsOwd8puvOJzd6VHGUCzyMo)
 
+#### Load the page with CLI util
+[![asciicast](https://asciinema.org/a/jJPG0QOIfaehMoYguGTp3kSvn.svg)](https://asciinema.org/a/jJPG0QOIfaehMoYguGTp3kSvn)
+
+#### Load the page with library function
+[![asciicast](https://asciinema.org/a/NeZP5PTULQ2IvlAB5mrDADMG2.svg)](https://asciinema.org/a/NeZP5PTULQ2IvlAB5mrDADMG2)
 
 ## License
 
