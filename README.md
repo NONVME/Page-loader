@@ -22,8 +22,6 @@ git clone https://github.com/NONVME/python-project-lvl3.git
 
 cd python-project-lvl3
 
-make build
-
 make package-install
 ```
 
