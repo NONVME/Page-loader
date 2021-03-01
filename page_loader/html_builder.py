@@ -14,19 +14,16 @@ TAG_ATTRS = {
 }
 
 
-def get_modified_page(url: str, page: str) -> tuple[str, list[str]]:
+def process_html(url: str, page: str) -> tuple[str, list[str]]:
     original_links = []
     soup = BeautifulSoup(page, 'html.parser')
     assets_dir_path = to_dirname('', url, '_files/')
-
     for tag, attribute in TAG_ATTRS.items():
         for link in [node.get(attribute) for node in soup.find_all(name=tag)]:
             domains_are_eq = urlparse(link).netloc == urlparse(url).netloc
             if domains_are_eq or urlparse(link).netloc == '':
-
                 original_links.append(link)
                 path = os.path.join(assets_dir_path, to_filename(link, url))
                 original_tag = soup.find(name=tag, **{attribute: link})
                 original_tag[attribute] = path
-
     return soup.prettify(formatter="html5"), original_links

@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 from progress.bar import Bar
 
 from page_loader.file import write
-from page_loader.html_builder import get_modified_page
+from page_loader.html_builder import process_html
 from page_loader.http import get_data
 from page_loader.url_formatter import to_dirname
 
@@ -17,7 +17,7 @@ def download(url: str, dir_path: str) -> str:
     assets_dirname = to_dirname(dir_path, url, '_files')
 
     page = get_data(url).text
-    modified_page, original_links = get_modified_page(url, page)
+    modified_page, original_links = process_html(url, page)
     write(modified_page, abs_path)
     logger.debug(f'page {url} was written in {abs_path}')
 

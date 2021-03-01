@@ -1,7 +1,6 @@
 import os
 import re
 import tempfile
-from typing import Union
 from urllib.parse import urlparse
 
 
@@ -16,7 +15,7 @@ def to_dirname(dirname: str, url: str,
 
 
 re_path = re.compile(r'[^a-zA-Z0-9]')
-re_scheme = re.compile(r'^https?:\/\/')
+re_scheme = re.compile(r'^https?://')
 
 
 def to_filename(url: str, domain: str) -> str:
@@ -30,15 +29,10 @@ def to_filename(url: str, domain: str) -> str:
     return filename
 
 
-def has_ext(url: str) -> bool:
-    return bool(os.path.splitext(url)[1])
-
-
-def truncate_name(path_file: Union[str, bytes]) -> str:
-    path_file = os.fsdecode(path_file)
+def truncate_name(path_file: str) -> str:
     path, filename = os.path.split(path_file)
     name_max = os.pathconf('/', 'PC_NAME_MAX') - 1
-    if len(filename) >= name_max:
+    if len(filename) > name_max:
         filename, ext = os.path.splitext(filename)
         file_uniqueness = next(tempfile._get_candidate_names())
         name_len = name_max - len(filename) - len(file_uniqueness) - len(ext)
@@ -47,8 +41,3 @@ def truncate_name(path_file: Union[str, bytes]) -> str:
         if os.path.exists(path_file):
             truncate_name(path_file)
     return path_file
-
-
-def get_domain(url: str) -> str:
-    domain = urlparse(url).netloc
-    return domain
