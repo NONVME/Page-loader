@@ -15,9 +15,11 @@ def to_dirname(dirname: str, url: str,
     return truncate_name(name)
 
 
+re_path = re.compile(r'[^a-zA-Z0-9]')
+re_scheme = re.compile(r'^https?:\/\/')
+
+
 def to_filename(url: str, domain: str) -> str:
-    re_path = re.compile(r'[^a-zA-Z0-9]')
-    re_scheme = re.compile(r'^https?:\/\/')
     url, ext = os.path.splitext(url)
     if re_scheme.match(url):
         filename = re_path.sub('-', re_scheme.sub('', url)) + ext
