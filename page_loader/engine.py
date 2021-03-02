@@ -24,10 +24,10 @@ def download(url: str, dir_path: str) -> str:
     bar = Bar(f'Loading: {url}', max=len(original_links))
 
     for link in original_links:
-        uri = urljoin(url, link)
+        resource_url = urljoin(url, link)
         assets_full_dirname = to_dirname(assets_dirname, url, link,
                                          is_link=True)
-        assets = get_data(uri).content
+        assets = get_data(resource_url).content
         write(assets, assets_full_dirname, is_assets=True)
         logger.debug(f'content by {link} was written')
         bar.next()

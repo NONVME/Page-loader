@@ -4,7 +4,7 @@ from typing import Optional
 import requests
 from requests import Response
 
-TIMEOUT = 1
+TIMEOUT = 15
 
 
 logger = logging.getLogger('base_console')
@@ -15,7 +15,7 @@ def get_data(url: str) -> Optional[Response]:
         logger.debug(f'get {url}')
         response = requests.get(url, timeout=TIMEOUT)
     except requests.exceptions.ReadTimeout:
-        logger.error(f'ReadTimeout, timeout = {TIMEOUT}')
+        logger.warning(f'ReadTimeout, timeout = {TIMEOUT}')
     else:
         if response.ok:
             return response

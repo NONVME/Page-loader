@@ -13,7 +13,7 @@ def write(data: Union[str, bytes],
 
     if not os.path.exists(dir_path) and is_assets:
         try:
-            os.makedirs(dir_path)
+            os.mkdir(dir_path)
             logger_file.debug(f'directory {dir_path} was created')
         except PermissionError:
             logger_console.exception(
